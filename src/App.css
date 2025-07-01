@@ -1,0 +1,37 @@
+body {
+  background: #181824;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+main {
+  padding: 2rem;
+  background: transparent;
+}
+
+h1 {
+  color: #d87093;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+@keyframes neonGlow {
+  from {
+    box-shadow: 0 0 10px #00ffe7, 0 0 20px #ff00cc;
+  }
+  to {
+    box-shadow: 0 0 30px #00ffe7, 0 0 40px #ff00cc;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
