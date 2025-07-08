@@ -16,7 +16,21 @@ const SearchBooks = () => {
 
   return (
     <section>
-        <Cart />
+      <h1 style={{
+        textAlign: 'center',
+        fontSize: '4.5rem',
+        fontWeight: 'bold',
+        color: '#fff',
+        background: 'linear-gradient(45deg,rgb(233, 52, 173) 0%,rgb(214, 124, 160) 99%, #fad0c4 100%)',
+        padding: '25px',
+        borderRadius: '20px',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+        fontFamily: '"Great Vibes", cursive, sans-serif',
+        animation: 'shine 3s linear infinite',
+        marginBottom: '2rem'
+      }}>Libritos Saribiris</h1>
+      <Cart />
       <form onSubmit={handleQuery} style={{ marginBottom: "2rem", textAlign: 'center' }}>
         <input
           placeholder="Buscar libros..."

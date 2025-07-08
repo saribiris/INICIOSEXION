@@ -1,23 +1,50 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginStart, loginSuccess, loginFailure } from '../slices/authSlice';
-import { authenticateUser } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
-const LoginForm = ({ onLoginSuccess }) => {
-  const dispatch = useDispatch();
-  const { isLoading, error } = useSelector(state => state.auth);
+const LoginForm = () => {
+  const navigate = useNavigate();
+  const { login, isLoading, error } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginStart());
-    try {
-      const user = await authenticateUser({ email, password });
-      dispatch(loginSuccess(user));
-      onLoginSuccess();
-    } catch (err) {
-      dispatch(loginFailure(err.message));
+    
+    // Validaciones
+    setEmailError('');
+    setPasswordError('');
+    
+    if (!email) {
+      setEmailError('El correo electrónico es requerido');
+      return;
+    }
+    
+    if (!validateEmail(email)) {
+      setEmailError('Por favor ingresa un correo electrónico válido');
+      return;
+    }
+    
+    if (!password) {
+      setPasswordError('La contraseña es requerida');
+      return;
+    }
+    
+    if (password.length < 6) {
+      setPasswordError('La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+
+    const result = await login({ email, password });
+    if (result.success) {
+      navigate('/');
     }
   };
 
@@ -99,6 +126,21 @@ const LoginForm = ({ onLoginSuccess }) => {
         {isLoading ? 'Cargando...' : 'Entrar'}
       </button>
       {error && <div style={{ color: '#ff69b4', textAlign: 'center', fontWeight: 'bold', textShadow: '0 0 5px #ffb6d5' }}>{error}</div>}
+      {emailError && <div style={{ color: '#ff69b4', textAlign: 'center', fontWeight: 'bold', textShadow: '0 0 5px #ffb6d5' }}>{emailError}</div>}
+      {passwordError && <div style={{ color: '#ff69b4', textAlign: 'center', fontWeight: 'bold', textShadow: '0 0 5px #ffb6d5' }}>{passwordError}</div>}
+      
+      <div style={{
+        background: 'rgba(255,240,245,0.7)',
+        padding: '1rem',
+        borderRadius: '10px',
+        border: '1px solid #ffb6d5',
+        fontSize: '0.9rem',
+        textAlign: 'center'
+      }}>
+        <p style={{ margin: '0.5rem 0', fontWeight: 'bold' }}>Para pruebas usar:</p>
+        <p style={{ margin: '0.2rem 0' }}>Usuario: john@mail.com / changeme</p>
+        <p style={{ margin: '0.2rem 0' }}>Admin: admin@libripelle.com / admin123</p>
+      </div>
     </form>
   );
 };

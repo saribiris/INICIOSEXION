@@ -21,7 +21,7 @@ const BookItem = ({ info }) => {
       confirmButtonText: 'Sí, añadir!'
     }).then((result) => {
       if (result.isConfirmed) {
-        addItem({ ...info, price, id: info.key, quantity });
+        addItem({ ...info, price, id: info.id, quantity });
         Swal.fire(
           '¡Añadido!',
           'El libro ha sido añadido a tu carrito.',
@@ -32,7 +32,7 @@ const BookItem = ({ info }) => {
   };
 
   return (
-    <div style={{ border: '2px solid #ffc0cb', borderRadius: '15px', padding: '1rem', textAlign: 'center', backgroundColor: '#fff', boxShadow: '0 4px 12px rgba(255, 105, 180, 0.3)', width: '250px' }}>
+    <div style={{ border: '2px solidrgb(57, 9, 17)', borderRadius: '15px', padding: '1rem', textAlign: 'center', backgroundColor: '#fff', boxShadow: '0 4px 12px rgba(255, 105, 180, 0.3)', width: '250px' }}>
       <img src={imageUrl} alt={info.title} style={{ width: "100%", height: "250px", objectFit: "cover", marginBottom: "0.5rem" }} />
       <h4>{info.title}</h4>
       <p><strong>Autor:</strong> {info.author || 'Desconocido'} ✍️</p>

@@ -6,11 +6,11 @@ body {
 
 main {
   padding: 2rem;
-  background: transparent;
+  background:#181824;
 }
 
 h1 {
-  color: #d87093;
+  color: #000000;
   text-align: center;
   margin-bottom: 2rem;
 }
